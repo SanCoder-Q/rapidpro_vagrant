@@ -1,0 +1,38 @@
+server {
+        listen 80;
+        location / {
+                if ($http_x_forwarded_proto != 'https') {
+                        rewrite ^ https://$host$request_uri? permanent;
+                }
+
+        }
+}
+server {
+        listen 443;
+
+        root html;
+        index index.html index.htm;
+
+        location / {
+                try_files $uri @proxy_to_app;
+        }
+
+        ssl on;
+        ssl_certificate /ssl/rapidpro.local.cert;
+        ssl_certificate_key /ssl/rapidpro.local.key;
+
+        location @proxy_to_app {
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+                proxy_redirect off;
+                proxy_buffering off;
+                proxy_pass http://192.168.50.4;
+        }
+        location /sitestatic {
+                alias /rapidpro/sitestatic/;
+        }
+}
+
+upstream 192.168.50.4 {
+        server unix:/tmp/gunicorn.sock weight=10;
+}

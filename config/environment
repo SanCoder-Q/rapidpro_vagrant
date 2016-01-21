@@ -1,0 +1,3 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+LANGUAGE=zh_CN.UTF-8
+LANG=zh_CN.UTF-8

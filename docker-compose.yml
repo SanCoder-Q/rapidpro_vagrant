@@ -1,0 +1,42 @@
+rapidpro:
+  restart: always
+  image:  quay.io/unicef_psm/docker-rapidpro:rapidpro.v1.0.8
+  environment:
+    ENV: production
+    RAPIDPRO_HOSTNAME: rapidpro.local
+    RAPIDPRO_CSRF: .rapidpro.local
+    TEMBA_HOST: rapidpro.local
+    REDIS_HOST: redis
+    REDIS_PORT: 6379
+    REDIS_DB: 1
+    POSTGRES_HOST: postgres
+    POSTGRES_NAME: rapidpro
+    POSTGRES_USER: rapidpro
+    POSTGRES_PASS: Passw0rd
+  ports:
+    - 8001:8001
+    - 80:80
+    - 443:443
+  links:
+    - postgres
+    - redis
+  volumes:
+    - /vagrant/config/nginx/default:/etc/nginx/sites-enabled/default
+    - /vagrant/config/nginx/SSL/rapidpro.local.cert:/ssl/rapidpro.local.cert
+    - /vagrant/config/nginx/SSL/rapidpro.local.key:/ssl/rapidpro.local.key
+
+postgres:
+  restart: always
+  image: mdillon/postgis
+  ports:
+    - 5432:5432
+  environment:
+    POSTGRES_DB: rapidpro
+    POSTGRES_USER: rapidpro
+    POSTGRES_PASSWORD: Passw0rd
+
+redis:
+  restart: always
+  image: redis
+  ports:
+    - 6379:6379
