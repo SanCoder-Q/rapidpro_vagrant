@@ -34,5 +34,5 @@ server {
 }
 
 upstream 192.168.50.4 {
-        server unix:/tmp/gunicorn.sock weight=10;
+        server 127.0.0.1:8080 weight=10;
 }
