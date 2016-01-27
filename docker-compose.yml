@@ -3,6 +3,7 @@ rapidpro:
   image:  quay.io/unicef_psm/docker-rapidpro:rapidpro.v1.0.13
   environment:
     ENV: production
+    C_FORCE_ROOT: true
     RAPIDPRO_HOSTNAME: rapidpro.local
     RAPIDPRO_CSRF: .rapidpro.local
     TEMBA_HOST: rapidpro.local
