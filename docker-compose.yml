@@ -4,7 +4,7 @@ rapidpro:
   environment:
     ENV: production
     RAPIDPRO_HOSTNAME: rapidpro.local
-    RAPIDPRO_CSRF: rapidpro.local
+    RAPIDPRO_CSRF: .rapidpro.local
     TEMBA_HOST: rapidpro.local
     REDIS_HOST: redis
     REDIS_PORT: 6379
@@ -15,6 +15,7 @@ rapidpro:
     POSTGRES_PASS: Passw0rd
   ports:
     - 8001:8001
+    - 8080:8080
     - 80:80
     - 443:443
   links:
@@ -24,6 +25,7 @@ rapidpro:
     - /vagrant/config/nginx/default:/etc/nginx/sites-enabled/default
     - /vagrant/config/nginx/SSL/rapidpro.local.cert:/ssl/rapidpro.local.cert
     - /vagrant/config/nginx/SSL/rapidpro.local.key:/ssl/rapidpro.local.key
+    - /vagrant/config/docker-entrypoint.sh:/docker-entrypoint.sh
 
 postgres:
   restart: always
