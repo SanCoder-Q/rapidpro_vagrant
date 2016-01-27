@@ -26,13 +26,13 @@ server {
                 proxy_set_header Host $http_host;
                 proxy_redirect off;
                 proxy_buffering off;
-                proxy_pass http://192.168.50.4;
+                proxy_pass http://rapidpro.local;
         }
         location /sitestatic {
                 alias /rapidpro/sitestatic/;
         }
 }
 
-upstream 192.168.50.4 {
+upstream rapidpro.local {
         server 127.0.0.1:8080 weight=10;
 }
