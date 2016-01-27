@@ -25,4 +25,6 @@ python manage.py collectstatic --noinput
 sed -ie "s/SESSION_COOKIE_SECURE = True/#SESSION_COOKIE_SECURE = True/g" /rapidpro/temba/settings/production.py
 service nginx restart
 
+supervisorctl restart celery
+
 newrelic-admin run-program gunicorn -w 2 -t 120 -b :8080 temba.wsgi
