@@ -22,7 +22,6 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --noinput
 
-sed -ie "s/textcool/${TEMBA_HOST}/g" /etc/nginx/sites-enabled/default
 sed -ie "s/SESSION_COOKIE_SECURE = True/#SESSION_COOKIE_SECURE = True/g" /rapidpro/temba/settings/production.py
 service nginx restart
 
